@@ -5,9 +5,9 @@ import (
 )
 
 func TestHelloWorld(t *testing.T) {
-	got := HelloWorld("hoge")
+	actual := HelloWorld("hoge")
 	expected := "hello world, hoge"
-	if got != expected {
-		t.Errorf("got %v\nwant %v", got, expected)
+	if actual != expected {
+		t.Errorf("actual %v\nwant %v", actual, expected)
 	}
 }
