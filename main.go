@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
-
-	"./sample01"
+	"./blackjack"
 )
 
 func main() {
-	s1 := sample01.HelloWorld("hoge")
-	fmt.Println(s1)
+	c := blackjack.NewCard(1, 1, blackjack.Heart, "1")
+	c.Score()
 }
