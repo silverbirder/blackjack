@@ -7,8 +7,8 @@ import (
 func TestSimpleStory(t *testing.T) {
 	//me := NewUser("me", auto=False)
 	//you := NewUser("you", auto=True)
-	//deck := NewDeck()
-	//deck := dock.Sort(Desc)
+	//deck := blackjack.NewDeck()
+	//deck.Sort(blackjack.Desc)
 	//blackjack := NewBlackJack(me, you, deck)
 	//blackjack.init()
 }

@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestAceIs1(t *testing.T) {
+func TestCard_AceIs1(t *testing.T) {
 	c := NewCard(1, Heart)
 	actual := c.Score()
 	expected := 1
@@ -13,7 +13,7 @@ func TestAceIs1(t *testing.T) {
 	}
 }
 
-func TestFaceCardIs10(t *testing.T) {
+func TestCard_FaceCardIs10(t *testing.T) {
 	for _, faceCard := range FaceCardList {
 		c := NewCard(int(faceCard), Heart)
 		actual := c.Score()

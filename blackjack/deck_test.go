@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestDeckSortDescAsc(t *testing.T) {
+func TestDeck_SortDescAsc(t *testing.T) {
 	d := NewDeck()
 	d.Sort(Desc)
 	if d.Set[0].Score() < d.Set[len(SymbolList)+1].Score() {
