@@ -1,10 +1,11 @@
 package main
 
 import (
-	"./blackjack"
+	"fmt"
+	"go-test-sample/blackjack"
 )
 
 func main() {
-	c := blackjack.NewCard(1, 1, blackjack.Heart, "1")
-	c.Score()
+	c := blackjack.NewCard(1, blackjack.Heart)
+	fmt.Println(c.Score())
 }

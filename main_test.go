@@ -4,6 +4,11 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
-	t.Skip("skip main..")
+func TestSimpleStory(t *testing.T) {
+	//me := NewUser("me", auto=False)
+	//you := NewUser("you", auto=True)
+	//deck := NewDeck()
+	//deck := dock.Sort(Desc)
+	//blackjack := NewBlackJack(me, you, deck)
+	//blackjack.init()
 }
