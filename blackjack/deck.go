@@ -38,7 +38,7 @@ func (d *Deck) Sort(sortType Sort) {
 		})
 	case Asc:
 		sort.SliceStable(d.Set, func(i, j int) bool {
-			return d.Set[i].Score() <= d.Set[j].Score()
+			return d.Set[i].Score() < d.Set[j].Score()
 		})
 	case Random:
 		for i := len(d.Set) - 1; i >= 0; i-- {

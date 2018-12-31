@@ -1,5 +1,7 @@
 package blackjack
 
+import "fmt"
+
 type Card struct {
 	Number int
 	Symbol Symbol
@@ -46,4 +48,8 @@ func (c *Card) Score() int {
 		return FaceCardValue
 	}
 	return c.Number
+}
+
+func (c *Card) String() string {
+	return fmt.Sprintf("%d of %v", c.Number, string(c.Symbol))
 }

@@ -11,6 +11,7 @@ type User struct {
 	Name  string
 	Hands []Card
 	Auto  bool
+	End   bool
 }
 
 func NewUser(name string, auto bool) *User {
@@ -19,12 +20,18 @@ func NewUser(name string, auto bool) *User {
 		Name:  name,
 		Hands: c,
 		Auto:  auto,
+		End:   false,
 	}
 	return u
 }
 
 func (u *User) Draw(Cards []Card, auto bool) []Card {
-	if auto || u.Auto || isDraw() {
+	if auto || u.Auto {
+		pop := Cards[len(Cards)-1]
+		u.Hands = append(u.Hands, pop)
+		return Cards[:len(Cards)-1]
+	}
+	if u.End = !isDraw(); !u.End {
 		pop := Cards[len(Cards)-1]
 		u.Hands = append(u.Hands, pop)
 		return Cards[:len(Cards)-1]
@@ -34,15 +41,15 @@ func (u *User) Draw(Cards []Card, auto bool) []Card {
 
 func isDraw() bool {
 	for {
-		ans := readLine("do you draw cards? y/n")
+		ans := readLine("do you draw cards? y/n .")
 		if ans == "y" {
-			fmt.Println("ok. start draw")
+			fmt.Println("ok. start draw.")
 			return true
 		} else if ans == "n" {
-			fmt.Println("ok. stop draw")
+			fmt.Println("ok. stop draw.")
 			return false
 		} else {
-			fmt.Println("please, input y or n")
+			fmt.Println("please, input y or n.")
 		}
 	}
 }
@@ -59,4 +66,20 @@ func readLine(msg string) string {
 		log.Fatal(s.Err())
 	}
 	return ""
+}
+
+func (u *User) String() string {
+	return u.Name
+}
+
+func (u *User) TotalScore() int {
+	score := 0
+	for _, c := range u.Hands {
+		score = score + c.Score()
+	}
+	return score
+}
+
+func (u *User) isBust(bustScore int) bool {
+	return u.TotalScore() > bustScore
 }

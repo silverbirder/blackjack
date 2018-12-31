@@ -1,9 +1,13 @@
 package blackjack
 
+import "fmt"
+
 type Game struct {
 	Players []User
 	Deck    Deck
 }
+
+const BustScore = 21
 
 func NewGame(users []User, deck Deck) *Game {
 	g := &Game{
@@ -14,7 +18,61 @@ func NewGame(users []User, deck Deck) *Game {
 }
 
 func (g *Game) InitTurn() {
+	fmt.Println("start blackjack.")
+	fmt.Println("init turn.")
 	for _, p := range g.Players {
-		g.Deck.Set = p.Draw(g.Deck.Set, true)
+		for i := 0; i < 2; i++ {
+			g.Deck.Set = p.Draw(g.Deck.Set, true)
+			// hide second card if user is auto mode.
+			if p.Auto && i == 1 {
+				fmt.Println(p.String() + " draw ???(hidden).")
+			} else {
+				fmt.Println(p.String() + " draw " + p.Hands[len(p.Hands)-1].String() + ".")
+			}
+		}
 	}
+}
+
+func (g *Game) MainTurn() {
+	for _, p := range g.Players {
+		for {
+			g.Deck.Set = p.Draw(g.Deck.Set, false)
+			if p.End {
+				break
+			}
+			if p.isBust(BustScore) {
+				fmt.Println(p.String() + " bust.")
+				break
+			}
+			fmt.Println(p.String() + " draw " + p.Hands[len(p.Hands)-1].String() + ".")
+		}
+	}
+}
+func (g *Game) JudgeTurn() {
+	isGameDraw := g.IsAllPlayerDraw()
+	if isGameDraw {
+		fmt.Println("this game is draw.")
+		return
+	}
+	min := BustScore
+	var winUser User
+	for _, p := range g.Players {
+		pMin := BustScore - p.TotalScore()
+		if pMin < 0 {
+			break
+		}
+		if min > pMin {
+			winUser = p
+		}
+	}
+	fmt.Println(winUser.String() + "(score:" + string(winUser.TotalScore()) + ") win.")
+}
+
+func (g *Game) IsAllPlayerDraw() bool {
+	for _, p := range g.Players {
+		if !p.isBust(BustScore) {
+			return false
+		}
+	}
+	return true
 }
