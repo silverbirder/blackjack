@@ -20,9 +20,9 @@ func NewGame(users []User, deck Deck) *Game {
 func (g *Game) InitTurn() {
 	fmt.Println("start blackjack.")
 	fmt.Println("init turn.")
-	for _, p := range g.Players {
+	for index, p := range g.Players {
 		for i := 0; i < 2; i++ {
-			g.Deck.Set = p.Draw(g.Deck.Set, true)
+			g.Deck.Set, g.Players[index].Hands, g.Players[index].End = p.Draw(g.Deck.Set, true)
 			// hide second card if user is auto mode.
 			if p.Auto && i == 1 {
 				fmt.Println(p.String() + " draw ???(hidden).")
@@ -34,9 +34,9 @@ func (g *Game) InitTurn() {
 }
 
 func (g *Game) MainTurn() {
-	for _, p := range g.Players {
+	for index, p := range g.Players {
 		for {
-			g.Deck.Set = p.Draw(g.Deck.Set, false)
+			g.Deck.Set, g.Players[index].Hands, g.Players[index].End = p.Draw(g.Deck.Set, false)
 			if p.End {
 				break
 			}
@@ -65,7 +65,7 @@ func (g *Game) JudgeTurn() {
 			winUser = p
 		}
 	}
-	fmt.Println(winUser.String() + "(score:" + string(winUser.TotalScore()) + ") win.")
+	fmt.Printf("%v (score:%v) win.", winUser.String(), winUser.TotalScore())
 }
 
 func (g *Game) IsAllPlayerDraw() bool {

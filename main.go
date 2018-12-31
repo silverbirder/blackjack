@@ -1,6 +1,8 @@
 package main
 
-import "go-test-sample/blackjack"
+import (
+	"go-test-sample/blackjack"
+)
 
 func main() {
 	users := make([]blackjack.User, 0)
@@ -9,7 +11,7 @@ func main() {
 	users = append(users, *me)
 	users = append(users, *you)
 	deck := blackjack.NewDeck()
-	deck.Sort(blackjack.Desc)
+	deck.Sort(blackjack.Asc)
 
 	g := blackjack.NewGame(users, *deck)
 	g.InitTurn()

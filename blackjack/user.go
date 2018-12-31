@@ -25,18 +25,18 @@ func NewUser(name string, auto bool) *User {
 	return u
 }
 
-func (u *User) Draw(Cards []Card, auto bool) []Card {
+func (u *User) Draw(Cards []Card, auto bool) ([]Card, []Card, bool) {
 	if auto || u.Auto {
 		pop := Cards[len(Cards)-1]
 		u.Hands = append(u.Hands, pop)
-		return Cards[:len(Cards)-1]
+		return Cards[:len(Cards)-1], u.Hands, u.End
 	}
 	if u.End = !isDraw(); !u.End {
 		pop := Cards[len(Cards)-1]
 		u.Hands = append(u.Hands, pop)
-		return Cards[:len(Cards)-1]
+		return Cards[:len(Cards)-1], u.Hands, u.End
 	}
-	return Cards
+	return Cards, u.Hands, u.End
 }
 
 func isDraw() bool {

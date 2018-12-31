@@ -9,8 +9,8 @@ func TestUser_Draw(t *testing.T) {
 	d := NewDeck()
 	d.Sort(Desc)
 	originalCardsLen := len(d.Set)
-	c := u.Draw(d.Set, true)
-	actual := len(u.Hands)
+	c, h, _ := u.Draw(d.Set, true)
+	actual := len(h)
 	expected := 1
 	if actual != expected {
 		t.Errorf("actual %v\nwant %v", actual, expected)
