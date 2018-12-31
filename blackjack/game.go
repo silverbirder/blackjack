@@ -22,10 +22,10 @@ func (g *Game) InitTurn() {
 	fmt.Println("init turn.")
 	for index, p := range g.Players {
 		for i := 0; i < 2; i++ {
-			g.Deck.Set, g.Players[index].Hands, g.Players[index].End = p.Draw(g.Deck.Set, true)
+			g.Deck.Set, g.Players[index].Hands, g.Players[index].End, _ = p.Draw(g.Deck.Set, true)
 			// hide second card if user is auto mode.
 			if p.Auto && i == 1 {
-				fmt.Println(p.String() + " draw ???(hidden).")
+				fmt.Println(p.String() + " draw ???(hidden:dev:" + p.Hands[len(p.Hands)-1].String() + ").")
 			} else {
 				fmt.Println(p.String() + " draw " + p.Hands[len(p.Hands)-1].String() + ".")
 			}
@@ -36,15 +36,18 @@ func (g *Game) InitTurn() {
 func (g *Game) MainTurn() {
 	for index, p := range g.Players {
 		for {
-			g.Deck.Set, g.Players[index].Hands, g.Players[index].End = p.Draw(g.Deck.Set, false)
-			if p.End {
+			doneDraw := false
+			g.Deck.Set, g.Players[index].Hands, g.Players[index].End, doneDraw = p.Draw(g.Deck.Set, false)
+			if g.Players[index].End {
 				break
 			}
-			if p.isBust(BustScore) {
-				fmt.Println(p.String() + " bust.")
+			if doneDraw {
+				fmt.Println(p.String() + " draw " + g.Players[index].Hands[len(g.Players[index].Hands)-1].String() + ".")
+			}
+			if g.Players[index].isBust(BustScore) {
+				fmt.Printf("%v bust.(score: %v).\n", p.String(), p.TotalScore())
 				break
 			}
-			fmt.Println(p.String() + " draw " + p.Hands[len(p.Hands)-1].String() + ".")
 		}
 	}
 }
@@ -59,7 +62,7 @@ func (g *Game) JudgeTurn() {
 	for _, p := range g.Players {
 		pMin := BustScore - p.TotalScore()
 		if pMin < 0 {
-			break
+			continue
 		}
 		if min > pMin {
 			winUser = p

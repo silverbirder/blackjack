@@ -3,6 +3,7 @@ package blackjack
 import (
 	"math/rand"
 	"sort"
+	"time"
 )
 
 type Deck struct {
@@ -41,6 +42,7 @@ func (d *Deck) Sort(sortType Sort) {
 			return d.Set[i].Score() < d.Set[j].Score()
 		})
 	case Random:
+		rand.Seed(time.Now().UnixNano())
 		for i := len(d.Set) - 1; i >= 0; i-- {
 			j := rand.Intn(i + 1)
 			d.Set[i], d.Set[j] = d.Set[j], d.Set[i]

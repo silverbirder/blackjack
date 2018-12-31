@@ -31,12 +31,12 @@ func TestGame_IsAllPlayerDraw(t *testing.T) {
 	deck := NewDeck()
 	deck.Sort(Asc)
 	g := NewGame(users, *deck)
-	g.Deck.Set, g.Players[0].Hands, g.Players[0].End = g.Players[0].Draw(g.Deck.Set, false)
-	g.Deck.Set, g.Players[0].Hands, g.Players[0].End = g.Players[0].Draw(g.Deck.Set, false)
-	g.Deck.Set, g.Players[0].Hands, g.Players[0].End = g.Players[0].Draw(g.Deck.Set, false)
-	g.Deck.Set, g.Players[1].Hands, g.Players[1].End = g.Players[1].Draw(g.Deck.Set, false)
-	g.Deck.Set, g.Players[1].Hands, g.Players[1].End = g.Players[1].Draw(g.Deck.Set, false)
-	g.Deck.Set, g.Players[1].Hands, g.Players[1].End = g.Players[1].Draw(g.Deck.Set, false)
+	g.Deck.Set, g.Players[0].Hands, g.Players[0].End, _ = g.Players[0].Draw(g.Deck.Set, true)
+	g.Deck.Set, g.Players[0].Hands, g.Players[0].End, _ = g.Players[0].Draw(g.Deck.Set, true)
+	g.Deck.Set, g.Players[0].Hands, g.Players[0].End, _ = g.Players[0].Draw(g.Deck.Set, true)
+	g.Deck.Set, g.Players[1].Hands, g.Players[1].End, _ = g.Players[1].Draw(g.Deck.Set, true)
+	g.Deck.Set, g.Players[1].Hands, g.Players[1].End, _ = g.Players[1].Draw(g.Deck.Set, true)
+	g.Deck.Set, g.Players[1].Hands, g.Players[1].End, _ = g.Players[1].Draw(g.Deck.Set, true)
 	actual := g.IsAllPlayerDraw()
 	expected := true
 	if actual != expected {

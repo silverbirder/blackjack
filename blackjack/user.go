@@ -8,10 +8,11 @@ import (
 )
 
 type User struct {
-	Name  string
-	Hands []Card
-	Auto  bool
-	End   bool
+	Name      string
+	Hands     []Card
+	Auto      bool
+	End       bool
+	Algorithm Algorithm
 }
 
 func NewUser(name string, auto bool) *User {
@@ -25,18 +26,31 @@ func NewUser(name string, auto bool) *User {
 	return u
 }
 
-func (u *User) Draw(Cards []Card, auto bool) ([]Card, []Card, bool) {
-	if auto || u.Auto {
+func (u *User) SetAlgorithm(algorithm Algorithm) {
+	u.Algorithm = algorithm
+}
+
+func (u *User) Draw(Cards []Card, auto bool) ([]Card, []Card, bool, bool) {
+	if auto {
 		pop := Cards[len(Cards)-1]
 		u.Hands = append(u.Hands, pop)
-		return Cards[:len(Cards)-1], u.Hands, u.End
+		return Cards[:len(Cards)-1], u.Hands, u.End, true
+	}
+	if u.Auto {
+		if isThink := u.Algorithm.Think(*u); isThink {
+			pop := Cards[len(Cards)-1]
+			u.Hands = append(u.Hands, pop)
+			return Cards[:len(Cards)-1], u.Hands, u.End, true
+		} else {
+			return Cards, u.Hands, true, false
+		}
 	}
 	if u.End = !isDraw(); !u.End {
 		pop := Cards[len(Cards)-1]
 		u.Hands = append(u.Hands, pop)
-		return Cards[:len(Cards)-1], u.Hands, u.End
+		return Cards[:len(Cards)-1], u.Hands, u.End, true
 	}
-	return Cards, u.Hands, u.End
+	return Cards, u.Hands, u.End, false
 }
 
 func isDraw() bool {
