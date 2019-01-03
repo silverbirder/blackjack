@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-test-sample/blackjack"
+	"blackjack/blackjack"
 )
 
 func main() {
