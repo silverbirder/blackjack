@@ -8,5 +8,5 @@ type SimpleAlgorithm struct{}
 
 func (s *SimpleAlgorithm) Think(user User) bool {
 	score := user.TotalScore()
-	return score < BustScore-5
+	return score < BurstScore-5
 }

@@ -35,14 +35,14 @@ func TestUser_TotalScore(t *testing.T) {
 	}
 }
 
-func TestUser_IsBust(t *testing.T) {
+func TestUser_IsBurst(t *testing.T) {
 	u := NewUser("me", true)
 	d := NewDeck()
 	d.Sort(Asc)
 	d.Set, u.Hands, u.End, _ = u.Draw(d.Set, true)
 	d.Set, u.Hands, u.End, _ = u.Draw(d.Set, true)
 	d.Set, u.Hands, u.End, _ = u.Draw(d.Set, true)
-	actual := u.isBust(BustScore)
+	actual := u.isBurst(BurstScore)
 	expected := true
 	if actual != expected {
 		t.Errorf("actual %v\nwant %v", actual, expected)

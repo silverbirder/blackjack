@@ -94,6 +94,6 @@ func (u *User) TotalScore() int {
 	return score
 }
 
-func (u *User) isBust(bustScore int) bool {
-	return u.TotalScore() > bustScore
+func (u *User) isBurst(BurstScore int) bool {
+	return u.TotalScore() > BurstScore
 }

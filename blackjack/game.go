@@ -7,7 +7,7 @@ type Game struct {
 	Deck    Deck
 }
 
-const BustScore = 21
+const BurstScore = 21
 
 func NewGame(users []User, deck Deck) *Game {
 	g := &Game{
@@ -44,8 +44,8 @@ func (g *Game) MainTurn() {
 			if doneDraw {
 				fmt.Println(p.String() + " draw " + g.Players[index].Hands[len(g.Players[index].Hands)-1].String() + ".")
 			}
-			if g.Players[index].isBust(BustScore) {
-				fmt.Printf("%v bust.(score: %v).\n", p.String(), p.TotalScore())
+			if g.Players[index].isBurst(BurstScore) {
+				fmt.Printf("%v Burst.(score: %v).\n", p.String(), p.TotalScore())
 				break
 			}
 		}
@@ -57,10 +57,10 @@ func (g *Game) JudgeTurn() {
 		fmt.Println("this game is draw.")
 		return
 	}
-	min := BustScore
+	min := BurstScore
 	var winUser User
 	for _, p := range g.Players {
-		pMin := BustScore - p.TotalScore()
+		pMin := BurstScore - p.TotalScore()
 		if pMin < 0 {
 			continue
 		}
@@ -73,7 +73,7 @@ func (g *Game) JudgeTurn() {
 
 func (g *Game) IsAllPlayerDraw() bool {
 	for _, p := range g.Players {
-		if !p.isBust(BustScore) {
+		if !p.isBurst(BurstScore) {
 			return false
 		}
 	}
